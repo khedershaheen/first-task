@@ -15,6 +15,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var confirmPass;
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -62,7 +63,7 @@ class RegisterScreen extends StatelessWidget {
               CustomTextFormFild(
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value)) {
                     return "Enter Correct Email Address";
                   } else {
@@ -96,10 +97,11 @@ class RegisterScreen extends StatelessWidget {
               ),
               CustomTextFormFild(
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>')
-                          .hasMatch(value)) {
-                    return "Enter Correct Email Address";
+                  confirmPass = value;
+                  if (value!.isEmpty) {
+                    return "Please Enter New Password";
+                  } else if (value.length < 8) {
+                    return "Password must be atleast 8 characters long";
                   } else {
                     return null;
                   }
@@ -113,10 +115,12 @@ class RegisterScreen extends StatelessWidget {
               ),
               CustomTextFormFild(
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>')
-                          .hasMatch(value)) {
-                    return "Enter Correct Email Address";
+                  if (value!.isEmpty) {
+                    return "Please Re-Enter New Password";
+                  } else if (value.length < 8) {
+                    return "Password must be atleast 8 characters long";
+                  } else if (value != confirmPass) {
+                    return "Password must be same as above";
                   } else {
                     return null;
                   }

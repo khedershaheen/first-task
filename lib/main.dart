@@ -18,10 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FlutterList(),
+      home: RegisterScreen(),
       routes: {
         LoginScreen.routName: (context) => LoginScreen(),
-        RegisterScreen.routName: (context) => RegisterScreen()
+        RegisterScreen.routName: (context) => RegisterScreen(),
+        FlutterList.routName: (context) => FlutterList(),
       },
     );
   }

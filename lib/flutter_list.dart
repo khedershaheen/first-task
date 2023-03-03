@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class FlutterList extends StatefulWidget {
   const FlutterList({Key? key}) : super(key: key);
 
+  static String routName = 'flutter list';
+
   @override
   State<FlutterList> createState() => _FlutterListState();
 }
@@ -44,35 +46,42 @@ class _FlutterListState extends State<FlutterList> {
         backgroundColor: Colors.purple,
         centerTitle: true,
       ),
-      body: AnimatedList(
-        key: _key,
-        initialItemCount: 0,
-        padding: const EdgeInsets.all(10),
-        itemBuilder: (_, index, animation) {
-          return SizeTransition(
-            key: UniqueKey(),
-            sizeFactor: animation,
-            child: Card(
-              margin: const EdgeInsets.all(6),
-              elevation: 10,
-              color: Colors.purple,
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(10),
-                title:
-                    Text(_items[index], style: const TextStyle(fontSize: 24)),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => _removeItem(index),
-                ),
-              ),
+      body: Column(
+        children: [
+          IconButton(onPressed: _addItem, icon: Icon(Icons.add)),
+          Expanded(
+            child: AnimatedList(
+              key: _key,
+              initialItemCount: 0,
+              padding: const EdgeInsets.all(10),
+              itemBuilder: (_, index, animation) {
+                return SizeTransition(
+                  key: UniqueKey(),
+                  sizeFactor: animation,
+                  child: Card(
+                    margin: const EdgeInsets.all(6),
+                    elevation: 10,
+                    color: Colors.purple,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(6),
+                      title: Text(_items[index],
+                          style: const TextStyle(fontSize: 20)),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => _removeItem(index),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.purple,
-          onPressed: _addItem,
-          child: const Icon(Icons.add)),
+      // floatingActionButton: FloatingActionButton(
+      //     backgroundColor: Colors.purple,
+      //     onPressed: _addItem,
+      //     child: const Icon(Icons.add)),
     );
   }
 }

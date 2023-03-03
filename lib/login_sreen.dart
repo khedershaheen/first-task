@@ -1,3 +1,4 @@
+import 'package:firsttask/flutter_list.dart';
 import 'package:firsttask/register_screen.dart';
 import 'package:firsttask/text_form_fild.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomTextFormFild(
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>')
+                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value)) {
                     return "Enter Correct Email Address";
                   } else {
@@ -64,10 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               CustomTextFormFild(
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>')
-                          .hasMatch(value)) {
-                    return "Enter Correct Email Address";
+                  if (value!.isEmpty) {
+                    return "Please Enter Your Password";
+                  } else if (value.length < 8) {
+                    return "Password must be atleast 8 characters long";
                   } else {
                     return null;
                   }
@@ -84,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  _formkey.currentState!.validate();
+                  if (_formkey.currentState!.validate()) {
+                    Navigator.pushNamed(context, FlutterList.routName);
+                  }
                 },
                 style: TextButton.styleFrom(
                   fixedSize: const Size(350, 65),
@@ -106,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, LoginScreen.routName);
+                      Navigator.pushNamed(context, RegisterScreen.routName);
                     },
                     child: const Text(
                       'Register',
