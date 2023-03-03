@@ -2,16 +2,28 @@ import 'package:firsttask/login_sreen.dart';
 import 'package:firsttask/text_form_fild.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
   static String routName = 'Register screen';
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+
+  final conPasswordController = TextEditingController();
+
   final phoneController = TextEditingController();
 
   final nameController = TextEditingController();
+
   final _formkey = GlobalKey<FormState>();
+
+  bool _isPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +118,18 @@ class RegisterScreen extends StatelessWidget {
                     return null;
                   }
                 },
+                suffIcon: IconButton(
+                  icon: _isPassword
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _isPassword = !_isPassword;
+                    });
+                  },
+                ),
                 controller: passwordController,
-                obscure: true,
+                obscure: _isPassword,
                 keybordtype: TextInputType.visiblePassword,
                 hintText: 'Enter Your Password',
                 lableText: 'Password',
@@ -125,8 +147,18 @@ class RegisterScreen extends StatelessWidget {
                     return null;
                   }
                 },
-                controller: passwordController,
-                obscure: true,
+                suffIcon: IconButton(
+                  icon: _isPassword
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _isPassword = !_isPassword;
+                    });
+                  },
+                ),
+                controller: conPasswordController,
+                obscure: _isPassword,
                 keybordtype: TextInputType.visiblePassword,
                 hintText: 'Confirm Your Password',
                 lableText: 'Confirm Password',
@@ -178,6 +210,8 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 }
+
+void togglePassword() {}
 
 class MyCustomClipper extends CustomClipper<Path> {
   @override
