@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
-
+  bool _isPassword = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +73,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   }
                 },
+                suffIcon: IconButton(
+                  icon: _isPassword
+                      ? Icon(Icons.visibility)
+                      : Icon(Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _isPassword = !_isPassword;
+                    });
+                  },
+                ),
                 controller: passwordController,
                 obscure: true,
                 keybordtype: TextInputType.visiblePassword,
