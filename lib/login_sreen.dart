@@ -1,16 +1,19 @@
-import 'package:firsttask/login_sreen.dart';
+import 'package:firsttask/register_screen.dart';
 import 'package:firsttask/text_form_fild.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
-  static String routName = 'Register screen';
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+  static String routName = 'Login screen';
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
-  final phoneController = TextEditingController();
-
-  final nameController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
 
   @override
@@ -29,7 +32,7 @@ class RegisterScreen extends StatelessWidget {
                   color: Colors.purple,
                   child: const Center(
                     child: Text(
-                      'Register',
+                      'LogIn',
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
@@ -40,29 +43,12 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 60,
               ),
               CustomTextFormFild(
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
-                    //allow upper and lower case alphabets and space
-                    return "Enter Correct Name";
-                  } else {
-                    return null;
-                  }
-                },
-                controller: nameController,
-                obscure: false,
-                keybordtype: TextInputType.name,
-                hintText: 'Enter Your name',
-                lableText: 'Full Name',
-                icon: const Icon(Icons.person),
-              ),
-              CustomTextFormFild(
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>')
                           .hasMatch(value)) {
                     return "Enter Correct Email Address";
                   } else {
@@ -75,24 +61,6 @@ class RegisterScreen extends StatelessWidget {
                 hintText: 'example@gmail.com',
                 lableText: 'Email',
                 icon: const Icon(Icons.email),
-              ),
-              CustomTextFormFild(
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-                          .hasMatch(value)) {
-                    //  r'^[0-9]{10}$' pattern plain match number with length 10
-                    return "Enter Correct Phone Number";
-                  } else {
-                    return null;
-                  }
-                },
-                controller: phoneController,
-                obscure: false,
-                keybordtype: TextInputType.number,
-                hintText: 'Enter Your Phone Number',
-                lableText: 'Phone',
-                icon: const Icon(Icons.phone),
               ),
               CustomTextFormFild(
                 validator: (value) {
@@ -111,24 +79,7 @@ class RegisterScreen extends StatelessWidget {
                 lableText: 'Password',
                 icon: const Icon(Icons.lock),
               ),
-              CustomTextFormFild(
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\><*~]).{8,}/pre>')
-                          .hasMatch(value)) {
-                    return "Enter Correct Email Address";
-                  } else {
-                    return null;
-                  }
-                },
-                controller: passwordController,
-                obscure: true,
-                keybordtype: TextInputType.visiblePassword,
-                hintText: 'Confirm Your Password',
-                lableText: 'Confirm Password',
-                icon: const Icon(Icons.lock),
-              ),
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
               TextButton(
@@ -141,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 child: const Text(
-                  'Register',
+                  'Login',
                   style: TextStyle(fontSize: 25),
                 ),
               ),
@@ -149,7 +100,7 @@ class RegisterScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Already have account ?',
+                    'Idont have account ?',
                     style: TextStyle(
                         fontSize: 18, color: Color.fromARGB(255, 85, 83, 83)),
                   ),
@@ -158,7 +109,7 @@ class RegisterScreen extends StatelessWidget {
                       Navigator.pushNamed(context, LoginScreen.routName);
                     },
                     child: const Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(
                         fontSize: 25,
                         color: Colors.purple,

@@ -6,11 +6,17 @@ class CustomTextFormFild extends StatelessWidget {
       required this.hintText,
       required this.lableText,
       required this.icon,
-      required this.keybordtype});
+      required this.keybordtype,
+      required this.obscure,
+      required this.controller,
+      this.validator});
   String hintText;
   String lableText;
   final Icon? icon;
   TextInputType keybordtype;
+  bool obscure;
+  final String? Function(String?)? validator;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +25,9 @@ class CustomTextFormFild extends StatelessWidget {
       decoration:
           const BoxDecoration(color: Color.fromARGB(255, 211, 207, 207)),
       child: TextFormField(
+        controller: controller,
+        validator: validator,
+        obscureText: obscure,
         keyboardType: keybordtype,
         decoration: InputDecoration(
           border: InputBorder.none,
